@@ -38,7 +38,7 @@ export default function GlossaryPanel() {
           Election Glossary
         </h2>
         <p className="panel-subtitle">
-          {GLOSSARY_TERMS.length} key terms explained — from constitutional bodies to ground-level technologies.
+          {GLOSSARY_TERMS.length} key terms explained - from constitutional bodies to ground-level technologies.
         </p>
       </div>
 

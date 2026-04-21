@@ -46,7 +46,7 @@ export default function Hero({ currentStage, totalStages, onStageClick }: Props)
   const progressPct = (currentStage / (totalStages - 1)) * 100;
 
   return (
-    <header id="hero" className="hero" role="banner" aria-label="How India Votes — Hero">
+    <header id="hero" className="hero" role="banner" aria-label="How India Votes - Hero">
       {/* Flag Stripe */}
       <div className="flag-stripe" aria-hidden="true">
         <div className="s-saffron" />

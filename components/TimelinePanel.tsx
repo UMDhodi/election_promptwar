@@ -56,7 +56,7 @@ export default function TimelinePanel() {
           2024 General Election Timeline
         </h2>
         <p className="panel-subtitle">
-          Key dates of the 18th Lok Sabha election — the world&apos;s largest democratic exercise,
+          Key dates of the 18th Lok Sabha election - the world&apos;s largest democratic exercise,
           spanning 44 days across 7 phases.
         </p>
       </div>

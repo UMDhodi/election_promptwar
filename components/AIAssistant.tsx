@@ -11,7 +11,7 @@ interface Message {
 const INITIAL_MESSAGES: Message[] = [
   {
     role: 'bot',
-    content: "Namaste! 🙏 I'm CivicAI — your guide to India's democratic process. Ask me anything about elections, EVM technology, voter rights, or the 2024 Lok Sabha results!",
+    content: "Namaste! 🙏 I'm CivicAI - your guide to India's democratic process. Ask me anything about elections, EVM technology, voter rights, or the 2024 Lok Sabha results!",
   },
 ];
 

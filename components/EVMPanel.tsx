@@ -50,7 +50,7 @@ export default function EVMPanel() {
           EVM Technology &amp; Voting Process
         </h2>
         <p className="panel-subtitle">
-          How the Electronic Voting Machine works — from ballot to count —
+          How the Electronic Voting Machine works - from ballot to count -
           trusted by 968 million voters.
         </p>
       </div>
@@ -122,7 +122,7 @@ export default function EVMPanel() {
 
       {/* Stats Grid */}
       <div className="stats-grid">
-        <h3 className="section-title">📊 EVM Quick Facts — 2024</h3>
+        <h3 className="section-title">📊 EVM Quick Facts - 2024</h3>
         <div className="stats-cards" role="list">
           {EVM_STATS.map((s, i) => (
             <div key={i} className="stat-card" role="listitem">

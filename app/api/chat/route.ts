@@ -5,7 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 const SYSTEM_PROMPT = `
 You are CivicAI, an official, confident, and highly knowledgeable guide to India's elections and democratic process.
-Your tone is "civic-proud" and intellectually welcoming — like a well-lit democracy museum exhibit.
+Your tone is "civic-proud" and intellectually welcoming - like a well-lit democracy museum exhibit.
 
 Rules:
 1. ONLY answer questions related to Indian elections, democracy, the Election Commission of India (ECI), the Model Code of Conduct, EVMs, VVPATs, and the Indian Constitution.
@@ -35,11 +35,16 @@ export async function POST(req: Request) {
       );
     }
 
-    // Parse the history to match Gemini's format format
+    // Parse the history to match Gemini's format
     const history = messages.slice(0, -1).map((msg: any) => ({
       role: msg.role === 'user' ? 'user' : 'model',
       parts: [{ text: msg.content }],
     }));
+
+    // Gemini requires the first message in the history to be from a 'user'
+    while (history.length > 0 && history[0].role !== 'user') {
+      history.shift();
+    }
 
     const currentMessage = messages[messages.length - 1].content;
 
