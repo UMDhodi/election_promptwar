@@ -48,9 +48,9 @@ export async function POST(req: Request) {
 
     const currentMessage = messages[messages.length - 1].content;
 
-    // Use standard gemini-pro for stable API generation
+    // Use Gemini 1.5 Flash for fast conversational responses
     const model = genAI.getGenerativeModel({
-      model: 'gemini-pro',
+      model: 'gemini-1.5-flash',
       systemInstruction: SYSTEM_PROMPT,
     });
 

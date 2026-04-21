@@ -79,7 +79,7 @@ export default function Hero({ currentStage, totalStages, onStageClick }: Props)
         </h1>
 
         <p className="hero-tagline">
-          From voter rolls to result halls — discover the world&apos;s{' '}
+          From voter rolls to result halls - discover the world&apos;s{' '}
           <strong>largest democratic exercise</strong>, one transparent step at a time.
         </p>
 
