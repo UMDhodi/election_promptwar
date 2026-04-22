@@ -1,7 +1,7 @@
 # How India Votes
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Emblem_of_India.svg" alt="Emblem of India" width="120" />
+  <img src="https://github.com/UMDhodi/election_promptwar/blob/main/public/images/emblem-of-india.svg" width="120" />
 </p>
 
 <p align="center">
@@ -347,5 +347,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 </p>
 
 <p align="center">
-  Built with ❤️ for India's Democratic Process
+  Built by ❤️ Uday Mayank Dhodi
 </p>
