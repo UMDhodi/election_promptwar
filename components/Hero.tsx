@@ -58,7 +58,7 @@ export default function Hero({ currentStage, totalStages, onStageClick }: Props)
         {/* National Emblem */}
         <div className="emblem-wrap" aria-hidden="true">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            src="/images/emblem-of-india.svg"
             alt="National Emblem of India"
             className="emblem-svg"
           />

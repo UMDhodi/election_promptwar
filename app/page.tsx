@@ -77,9 +77,9 @@ export default function Home() {
             <div className="footer-brand">
               <span className="footer-emblem" aria-hidden="true">
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                  src="/images/emblem-of-india.svg"
                   alt="National Emblem of India"
-                  style={{ filter: 'brightness(0) invert(1) width: 50px', height: '50px' }}
+                  style={{ filter: 'brightness(0) invert(1)', width: '50px', height: '50px' }}
                   className="emblem-svg"
                 />
               </span>
