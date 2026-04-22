@@ -339,11 +339,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ---
 
 <p align="center">
-  <strong>PromptWar Hackthon by Hack2Skills</strong>
+  <strong>PromptWar Hackathon by Hack2Skills</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/PromptWar-Hackathon-FF6B6B?style=for-the-badge&logo=lightning" alt="PromptWar Hackthon by Hack2Skills" />
+  <img src="https://img.shields.io/badge/PromptWar-Hackathon-FF6B6B?style=for-the-badge&logo=lightning" alt="PromptWar Hackathon by Hack2Skills" />
 </p>
 
 <p align="center">
