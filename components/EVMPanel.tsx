@@ -32,7 +32,7 @@ const VOTING_STEPS = [
   },
   {
     title: 'VVPAT Slip Confirms Vote',
-    desc: "A VVPAT paper slip appears in the transparent window for exactly 7 seconds — showing your candidate's name, party symbol, and serial number — before dropping into a sealed box.",
+    desc: "A VVPAT paper slip appears in the transparent window for exactly 7 seconds — showing your candidate's name, party symbol, and serial number before dropping into a sealed box.",
   },
 ];
 

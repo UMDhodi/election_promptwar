@@ -43,7 +43,7 @@ export const ELECTION_STAGES: ElectionStage[] = [
     roleLabel: 'ECI',
     duration: 'Ongoing / Year-round',
     description:
-      'The foundation of every election is an accurate electoral roll — a list of every citizen eligible to vote. The Election Commission of India (ECI), through Booth Level Officers (BLOs), conducts annual revision exercises to add new voters (18+), delete deceased/relocated voters, and correct entries. This is carried out under the Representation of the People Act, 1950. Each Assembly Constituency (AC) has its own roll, and the aggregate forms the parliamentary roll. Digital updates are possible via the Voter Service Portal. The "Special Summary Revision" (October–January) is the key annual exercise.',
+      'The foundation of every election is an accurate electoral roll a list of every citizen eligible to vote. The Election Commission of India (ECI), through Booth Level Officers (BLOs), conducts annual revision exercises to add new voters (18+), delete deceased/relocated voters, and correct entries. This is carried out under the Representation of the People Act, 1950. Each Assembly Constituency (AC) has its own roll, and the aggregate forms the parliamentary roll. Digital updates are possible via the Voter Service Portal. The "Special Summary Revision" (October–January) is the key annual exercise.',
     facts: [
       '🗂️ Over 96.8 crore (968 million) voters registered for 2024 elections',
       '👮 ~1.3 million Booth Level Officers manage grassroots registration',
@@ -63,7 +63,7 @@ export const ELECTION_STAGES: ElectionStage[] = [
     facts: [
       '📅 2024 election announced March 16, spanning 7 phases from April 19 to June 1',
       '⚡ Model Code of Conduct kicks in the moment the schedule is announced',
-      '🔒 ECI is constitutionally independent — no government can influence the schedule',
+      '🔒 ECI is constitutionally independent no government can influence the schedule',
       '🌦️ Phases designed around weather, festivals, and board exam calendars',
     ],
   },
@@ -75,7 +75,7 @@ export const ELECTION_STAGES: ElectionStage[] = [
     roleLabel: 'Candidate',
     duration: '7-14 days after notification',
     description:
-      'Any citizen who meets the eligibility criteria can file nomination papers before the Returning Officer (RO). For Lok Sabha: minimum age 25, must be a registered voter in India, not a government servant, not convicted under specific offenses. Candidates must submit Form 2B (nomination), Form 26 (asset affidavit), and pay a security deposit — ₹25,000 for general candidates, ₹12,500 for SC/ST. The affidavit must disclose criminal antecedents, educational qualifications, and detailed assets/liabilities.',
+      'Any citizen who meets the eligibility criteria can file nomination papers before the Returning Officer (RO). For Lok Sabha: minimum age 25, must be a registered voter in India, not a government servant, not convicted under specific offenses. Candidates must submit Form 2B (nomination), Form 26 (asset affidavit), and pay a security deposit ₹25,000 for general candidates, ₹12,500 for SC/ST. The affidavit must disclose criminal antecedents, educational qualifications, and detailed assets/liabilities.',
     facts: [
       '💰 Security deposit: ₹25,000 for general, ₹12,500 for SC/ST candidates',
       '⚖️ Full asset & criminal record disclosure mandatory (Form 26)',
@@ -91,12 +91,12 @@ export const ELECTION_STAGES: ElectionStage[] = [
     roleLabel: 'ECI',
     duration: '2-3 days post nomination deadline',
     description:
-      'The Returning Officer meticulously examines all nomination papers for completeness, accuracy, and eligibility. Objections can be raised by candidates or their agents. After scrutiny, candidates have a 2-day window to withdraw their candidature. Withdrawal is irrevocable once submitted. The RO then assigns ballot numbers and ensures electoral symbols are allotted — national/state parties get reserved symbols, independents draw from the ECI\'s free-symbol pool.',
+      'The Returning Officer meticulously examines all nomination papers for completeness, accuracy, and eligibility. Objections can be raised by candidates or their agents. After scrutiny, candidates have a 2-day window to withdraw their candidature. Withdrawal is irrevocable once submitted. The RO then assigns ballot numbers and ensures electoral symbols are allotted national/state parties get reserved symbols, independents draw from the ECI\'s free-symbol pool.',
     facts: [
       '🔎 Returning Officers check eligibility, paperwork, criminal history disclosures',
-      '⏱️ Candidates have 2 days to withdraw after scrutiny — withdrawal is final',
+      '⏱️ Candidates have 2 days to withdraw after scrutiny withdrawal is final',
       '🎯 NOTA (None of the Above) appears as the last option on every EVM ballot',
-      '📜 Symbol allotment is done meticulously — no two parties share a symbol',
+      '📜 Symbol allotment is done meticulously no two parties share a symbol',
     ],
   },
   {
@@ -141,7 +141,7 @@ export const ELECTION_STAGES: ElectionStage[] = [
     description:
       'On polling day, eligible voters go to their assigned polling booth to cast votes using the Electronic Voting Machine (EVM). Each booth is managed by a Presiding Officer and polling officers. The process: voter arrives → identity check against roll → left index finger marked with indelible ink → ballot slip issued → voter enters compartment → presses button on Ballot Unit → VVPAT prints a slip (visible 7 seconds) → slip drops into locked VVPAT box. Central Armed Police Forces (CAPF) are deployed for security.',
     facts: [
-      '🌑 Indelible ink (Silver nitrate-based) lasts 2-3 weeks — prevents double voting',
+      '🌑 Indelible ink (Silver nitrate-based) lasts 2-3 weeks prevents double voting',
       '♿ 85+ and PwD voters can get home voting facility (postal ballot)',
       '📍 No voter should travel more than 2km to reach their polling booth',
       '🔢 Average EVM handles 400–1,200 voters per day',
@@ -157,8 +157,8 @@ export const ELECTION_STAGES: ElectionStage[] = [
     description:
       'Counting begins at 8am on the declared result day at designated Counting Centres. All EVMs are transported under strict security from polling booths. Candidates and their counting agents are present. Postal ballots are counted first. Then EVM counting begins round by round. Each round covers all booths in a segment. The Returning Officer declares the result after all rounds. India uses First Past the Post (FPTP) system.',
     facts: [
-      '🏛️ India uses FPTP — highest votes wins, regardless of majority',
-      '📮 Postal ballots counted first — can swing close results significantly',
+      '🏛️ India uses FPTP highest votes wins, regardless of majority',
+      '📮 Postal ballots counted first can swing close results significantly',
       '🔒 EVMs stored in double-locked strongrooms with 24/7 CCTV & CAPF guard',
       '🎯 Counting agents can raise disputes if EVM count differs from form 17C',
     ],
@@ -173,9 +173,9 @@ export const ELECTION_STAGES: ElectionStage[] = [
     description:
       'As rounds are counted, the RO publishes lead tables. Once all rounds are tallied, the Returning Officer announces the winner by declaring the result sheet (Form 20). The winner is issued a Certificate of Election (Form 22). If the margin is very thin, candidates can request a recount. After all 543 constituencies declare, the ECI compiles national results. The MCC ceases after results.',
     facts: [
-      '📋 Winner receives Form 22 — Certificate of Election from Returning Officer',
+      '📋 Winner receives Form 22 Certificate of Election from Returning Officer',
       '💸 Security deposit forfeited if candidate polls < 1/6th of valid votes',
-      '🔄 Recount can be requested — RO must verify the demand is genuine',
+      '🔄 Recount can be requested RO must verify the demand is genuine',
       '📡 results.eci.gov.in shows live constituency counts on result day',
     ],
   },
@@ -249,7 +249,7 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   },
   {
     date: 'June 1, 2024',
-    title: 'Phase 7 Polling — Final Day',
+    title: 'Phase 7 Polling Final Day',
     desc: 'Last 57 constituencies vote. Bihar, Himachal Pradesh, J&K, Odisha, Punjab, UP, West Bengal. Election concludes.',
     phase: '7',
     type: '7',
@@ -337,7 +337,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     ],
     correct: 1,
     explanation:
-      'India uses the First Past the Post (FPTP) system — the candidate with the most votes in a constituency wins, regardless of whether they have an absolute majority.',
+      'India uses the First Past the Post (FPTP) system the candidate with the most votes in a constituency wins, regardless of whether they have an absolute majority.',
   },
   {
     id: 7,
@@ -403,14 +403,14 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     abbr: 'RO',
     category: 'Process',
     definition:
-      'A senior government official (typically District Collector or equivalent) designated by the ECI for each constituency to supervise the entire election process — from accepting nominations to declaring results.',
+      'A senior government official (typically District Collector or equivalent) designated by the ECI for each constituency to supervise the entire election process from accepting nominations to declaring results.',
   },
   {
     term: 'None of the Above',
     abbr: 'NOTA',
     category: 'Process',
     definition:
-      'Introduced in 2013 after a Supreme Court order in PUCL v. Union of India. Appears as the last option on every EVM ballot. NOTA votes are counted but do not affect the winner — the candidate with the most positive votes still wins.',
+      'Introduced in 2013 after a Supreme Court order in PUCL v. Union of India. Appears as the last option on every EVM ballot. NOTA votes are counted but do not affect the winner the candidate with the most positive votes still wins.',
   },
   {
     term: 'Electoral Photo Identity Card',
@@ -438,7 +438,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     abbr: 'PB',
     category: 'Process',
     definition:
-      'A voting mechanism allowing certain categories of voters — service voters (armed forces, central services), senior citizens (85+), differently-abled persons, and essential service workers on duty — to vote by post without visiting a polling booth.',
+      'A voting mechanism allowing certain categories of voters service voters (armed forces, central services), senior citizens (85+), differently-abled persons, and essential service workers on duty — to vote by post without visiting a polling booth.',
   },
   {
     term: 'Indelible Ink',

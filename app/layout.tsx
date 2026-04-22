@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'How India Votes — Civic Education Platform',
+  title: 'How India Votes Civic Education Platform',
   description:
     'An immersive civic-education platform teaching the complete Indian election process — from voter registration to result declaration. Explore EVM technology, 2024 election timeline, and test your knowledge.',
   keywords: [

@@ -1,22 +1,22 @@
 'use client';
 
 import { useState } from 'react';
-import Hero          from '@/components/Hero';
-import TabNav        from '@/components/TabNav';
-import AIAssistant   from '@/components/AIAssistant';
-import JourneyPanel  from '@/components/JourneyPanel';
+import Hero from '@/components/Hero';
+import TabNav from '@/components/TabNav';
+import AIAssistant from '@/components/AIAssistant';
+import JourneyPanel from '@/components/JourneyPanel';
 import TimelinePanel from '@/components/TimelinePanel';
-import EVMPanel      from '@/components/EVMPanel';
-import QuizPanel     from '@/components/QuizPanel';
+import EVMPanel from '@/components/EVMPanel';
+import QuizPanel from '@/components/QuizPanel';
 import GlossaryPanel from '@/components/GlossaryPanel';
-import dynamic       from 'next/dynamic';
+import dynamic from 'next/dynamic';
 
 const FluxCanvas = dynamic(() => import('@/components/FluxCanvas'), { ssr: false });
 
 type TabId = 'journey' | 'timeline' | 'evm' | 'quiz' | 'glossary';
 
 export default function Home() {
-  const [activeTab, setActiveTab]     = useState<TabId>('journey');
+  const [activeTab, setActiveTab] = useState<TabId>('journey');
   const [currentStage, setCurrentStage] = useState(0);
 
   function handleTabChange(tab: TabId) {
@@ -60,8 +60,8 @@ export default function Home() {
               />
             )}
             {activeTab === 'timeline' && <TimelinePanel key="timeline" />}
-            {activeTab === 'evm'      && <EVMPanel      key="evm" />}
-            {activeTab === 'quiz'     && <QuizPanel     key="quiz" />}
+            {activeTab === 'evm' && <EVMPanel key="evm" />}
+            {activeTab === 'quiz' && <QuizPanel key="quiz" />}
             {activeTab === 'glossary' && <GlossaryPanel key="glossary" />}
           </div>
         </main>
@@ -75,7 +75,14 @@ export default function Home() {
           </div>
           <div className="footer-inner container">
             <div className="footer-brand">
-              <span className="footer-emblem" aria-hidden="true">🏛️</span>
+              <span className="footer-emblem" aria-hidden="true">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                  alt="National Emblem of India"
+                  style={{ filter: 'brightness(0) invert(1) width: 50px', height: '50px' }}
+                  className="emblem-svg"
+                />
+              </span>
               <span className="footer-title">How India Votes</span>
               <span className="footer-desc">
                 A civic-education platform. Not affiliated with the Election Commission of India.
