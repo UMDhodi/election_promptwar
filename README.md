@@ -1,8 +1,9 @@
 # How India Votes
 
-<p align="center">
+<picture align="center">
+  <source media="(prefers-color-scheme: light)" srcset="YOUR-LIGHTMODE-IMAGE-URL">
   <img src="https://github.com/UMDhodi/election_promptwar/blob/main/public/images/emblem-of-india.svg" width="120" />
-</p>
+</picture>
 
 <p align="center">
   <strong>An Immersive Civic Education Platform for Understanding India's Democratic Electoral System</strong>
