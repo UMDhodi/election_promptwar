@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import './globals.css';
 
 const inter = Inter({
@@ -64,7 +65,10 @@ export default function RootLayout({
           })
         }} />
       </head>
-      <body className={`${inter.variable} ${playfair.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${playfair.variable}`}>
+        <GoogleAnalytics />
+        {children}
+      </body>
     </html>
   );
 }

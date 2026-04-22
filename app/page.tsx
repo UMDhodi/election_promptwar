@@ -9,6 +9,7 @@ import TimelinePanel from '@/components/TimelinePanel';
 import EVMPanel from '@/components/EVMPanel';
 import QuizPanel from '@/components/QuizPanel';
 import GlossaryPanel from '@/components/GlossaryPanel';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import dynamic from 'next/dynamic';
 
 const FluxCanvas = dynamic(() => import('@/components/FluxCanvas'), { ssr: false });
@@ -52,17 +53,19 @@ export default function Home() {
         {/* ── PANELS ────────────────────────────────────────────── */}
         <main id="main-panels" className="panels-wrapper" role="main">
           <div className="container">
-            {activeTab === 'journey' && (
-              <JourneyPanel
-                key="journey"
-                currentStage={currentStage}
-                onStageChange={setCurrentStage}
-              />
-            )}
-            {activeTab === 'timeline' && <TimelinePanel key="timeline" />}
-            {activeTab === 'evm' && <EVMPanel key="evm" />}
-            {activeTab === 'quiz' && <QuizPanel key="quiz" />}
-            {activeTab === 'glossary' && <GlossaryPanel key="glossary" />}
+            <ErrorBoundary>
+              {activeTab === 'journey' && (
+                <JourneyPanel
+                  key="journey"
+                  currentStage={currentStage}
+                  onStageChange={setCurrentStage}
+                />
+              )}
+              {activeTab === 'timeline' && <TimelinePanel key="timeline" />}
+              {activeTab === 'evm' && <EVMPanel key="evm" />}
+              {activeTab === 'quiz' && <QuizPanel key="quiz" />}
+              {activeTab === 'glossary' && <GlossaryPanel key="glossary" />}
+            </ErrorBoundary>
           </div>
         </main>
 

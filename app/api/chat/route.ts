@@ -1,6 +1,16 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { z } from 'zod';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+
+const messageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string().min(1).max(2000),
+});
+
+const chatRequestSchema = z.object({
+  messages: z.array(messageSchema).min(1).max(20),
+});
 
 const SYSTEM_PROMPT = `
 You are CivicAI, an official, confident, and highly knowledgeable guide to India's elections and democratic process.
@@ -15,6 +25,33 @@ Rules:
 6. Acknowledge that you are powered by Gemini but act as CivicAI for the "How India Votes" platform.
 `;
 
+async function rateLimit(req: Request): Promise<boolean> {
+  const ip = req.headers.get('cf-connecting-ip') || 
+              req.headers.get('x-forwarded-for')?.split(',')[0] || 
+              'unknown';
+  
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const maxRequests = 10;
+  
+  if (!rateLimitCache.has(ip)) {
+    rateLimitCache.set(ip, []);
+  }
+  
+  const timestamps = rateLimitCache.get(ip)!;
+  const recent = timestamps.filter(t => now - t < windowMs);
+  
+  if (recent.length >= maxRequests) {
+    return false;
+  }
+  
+  recent.push(now);
+  rateLimitCache.set(ip, recent);
+  return true;
+}
+
+const rateLimitCache = new Map<string, number[]>();
+
 export async function POST(req: Request) {
   try {
     if (!process.env.GEMINI_API_KEY) {
@@ -24,30 +61,36 @@ export async function POST(req: Request) {
       );
     }
 
-    const body = await req.json();
-    const { messages } = body;
-
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    if (!(await rateLimit(req))) {
       return new Response(
-        JSON.stringify({ error: "Invalid request format. 'messages' array required." }),
+        JSON.stringify({ error: 'Too many requests. Please try again in a minute.' }),
+        { status: 429, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const body = await req.json();
+    const validation = chatRequestSchema.safeParse(body);
+
+    if (!validation.success) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid request format.', details: validation.error.issues }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Build conversation history in Gemini format
-    const history = messages.slice(0, -1).map((msg: any) => ({
+    const { messages } = validation.data;
+
+    const history = messages.slice(0, -1).map((msg) => ({
       role: msg.role === 'user' ? 'user' : 'model',
       parts: [{ text: msg.content }],
     }));
 
-    // Gemini requires history to start with a 'user' turn
     while (history.length > 0 && history[0].role !== 'user') {
       history.shift();
     }
 
     const currentMessage = messages[messages.length - 1].content;
 
-    // gemini-2.5-flash — latest & most capable model available on this key
     const model = genAI.getGenerativeModel({
       model: 'gemini-2.5-flash',
       systemInstruction: SYSTEM_PROMPT,
@@ -61,11 +104,11 @@ export async function POST(req: Request) {
       JSON.stringify({ text: responseText }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Chat API Error:', error);
 
-    const msg: string = error?.message ?? '';
-    const isQuota = msg.includes('429') || msg.includes('quota') || msg.includes('Too Many Requests');
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    const isQuota = message.includes('429') || message.includes('quota') || message.includes('Too Many Requests');
 
     if (isQuota) {
       return new Response(
@@ -77,8 +120,10 @@ export async function POST(req: Request) {
     }
 
     return new Response(
-      JSON.stringify({ error: msg || 'An unexpected error occurred.' }),
+      JSON.stringify({ error: message || 'An unexpected error occurred.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 }
+
+export const runtime = 'edge';

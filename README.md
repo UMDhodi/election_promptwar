@@ -1,7 +1,7 @@
 # How India Votes
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Emblem_of_India.svg" alt="Emblem of India" width="120" />
+  <img src="/images/emblem-of-india.svg" alt="Emblem of India" width="120" />
 </p>
 
 <p align="center">
@@ -314,6 +314,8 @@ The platform includes accessibility features:
 | `npm run build` | Build for production |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
+| `npm run test` | Run tests |
+| `npm run test:coverage` | Run tests with coverage |
 
 ---
 
