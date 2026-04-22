@@ -1,11 +1,7 @@
 # How India Votes
 
 <p align="center">
-<<<<<<< HEAD
-  <img src="/images/emblem-of-india.svg" alt="Emblem of India" width="120" />
-=======
   <img src="https://github.com/UMDhodi/election_promptwar/blob/main/public/images/emblem-of-india.svg" width="120" />
->>>>>>> 9863e0366cefaaaf95ef3b47adf61848d8c2d14a
 </p>
 
 <p align="center">
