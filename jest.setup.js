@@ -20,6 +20,15 @@ Object.defineProperty(window, 'matchMedia', {
   }),
 });
 
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  value: class IntersectionObserver {
+    observe() { return null; }
+    disconnect() { return null; }
+    unobserve() { return null; }
+  },
+});
+
 Object.defineProperty(navigator, 'clipboard', {
   value: {
     writeText: jest.fn(),

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { QUIZ_QUESTIONS } from '@/lib/data';
+import { saveQuizScore, getLeaderboard, isFirebaseConfigured, QuizScore } from '@/lib/firebase';
 
 interface AnswerState {
   chosen: number | null;
@@ -22,11 +23,35 @@ export default function QuizPanel() {
     QUIZ_QUESTIONS.map(() => ({ chosen: null, revealed: false }))
   );
   const [finished, setFinished] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [leaderboard, setLeaderboard] = useState<QuizScore[]>([]);
+  const [nameInput, setNameInput] = useState('');
+  const [scoreSaved, setScoreSaved] = useState(false);
 
   const q  = QUIZ_QUESTIONS[current];
   const ans = answers[current];
   const score = answers.filter((a, i) => a.chosen === QUIZ_QUESTIONS[i].correct).length;
   const totalAnswered = answers.filter((a) => a.revealed).length;
+  const hasFirebase = isFirebaseConfigured();
+
+  useEffect(() => {
+    if (showLeaderboard && hasFirebase) {
+      getLeaderboard(10).then(setLeaderboard);
+    }
+  }, [showLeaderboard, hasFirebase]);
+
+  async function handleSaveScore(playerName: string) {
+    if (!playerName.trim() || scoreSaved) return;
+    const result = await saveQuizScore({
+      playerName: playerName.trim(),
+      score,
+      totalQuestions: QUIZ_QUESTIONS.length,
+    });
+    if (result) {
+      setScoreSaved(true);
+      setLeaderboard(await getLeaderboard(10));
+    }
+  }
 
   function choose(optIdx: number) {
     if (ans.revealed) return;
@@ -67,9 +92,60 @@ export default function QuizPanel() {
             </div>
             <h3 className="results-title">{title}</h3>
             <p className="results-subtitle">{subtitle}</p>
-            <button className="btn-retry" onClick={retry}>
-              <span aria-hidden="true">🔄</span> Try Again
-            </button>
+            
+            {!showLeaderboard ? (
+              <div className="results-actions">
+                <button className="btn-retry" onClick={retry}>
+                  <span aria-hidden="true">🔄</span> Try Again
+                </button>
+                {hasFirebase && !scoreSaved && (
+                  <button className="btn-leaderboard" onClick={() => setShowLeaderboard(true)}>
+                    <span aria-hidden="true">🏆</span> Save Score
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="leaderboard-section">
+                {!scoreSaved ? (
+                  <div className="save-score-form">
+                    <input
+                      type="text"
+                      placeholder="Enter your name"
+                      value={nameInput}
+                      onChange={(e) => setNameInput(e.target.value)}
+                      maxLength={20}
+                      aria-label="Your name for leaderboard"
+                    />
+                    <button 
+                      className="btn-save-score"
+                      onClick={() => handleSaveScore(nameInput)}
+                      disabled={!nameInput.trim()}
+                    >
+                      Save Score
+                    </button>
+                  </div>
+                ) : (
+                  <p className="score-saved-msg">Score saved! 🎉</p>
+                )}
+                {leaderboard.length > 0 && (
+                  <div className="leaderboard" role="region" aria-label="Leaderboard">
+                    <h4>🏆 Top Scores</h4>
+                    <ol className="leaderboard-list">
+                      {leaderboard.map((entry, i) => (
+                        <li key={i} className={entry.playerName === nameInput ? 'current-player' : ''}>
+                          <span className="lb-rank">{i + 1}</span>
+                          <span className="lb-name">{entry.playerName}</span>
+                          <span className="lb-score">{entry.score}/{entry.totalQuestions}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+                <button className="btn-back" onClick={() => setShowLeaderboard(false)}>
+                  ← Back to Results
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
