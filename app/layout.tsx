@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
   },
   other: {
-    'google-site-verification': 'india-votes-civic-platform',
+    'google-site-verification': 'google-site-verification-code-here',
   },
 };
 

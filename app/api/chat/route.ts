@@ -57,14 +57,14 @@ export async function POST(req: Request) {
     if (!process.env.GEMINI_API_KEY) {
       return new Response(
         JSON.stringify({ error: 'GEMINI_API_KEY is not configured on the server.' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }
       );
     }
 
     if (!(await rateLimit(req))) {
       return new Response(
         JSON.stringify({ error: 'Too many requests. Please try again in a minute.' }),
-        { status: 429, headers: { 'Content-Type': 'application/json' } }
+        { status: 429, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'private, max-age=60' } }
       );
     }
 
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
     if (!validation.success) {
       return new Response(
         JSON.stringify({ error: 'Invalid request format.', details: validation.error.issues }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }
       );
     }
 
@@ -92,17 +92,48 @@ export async function POST(req: Request) {
     const currentMessage = messages[messages.length - 1].content;
 
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash',
       systemInstruction: SYSTEM_PROMPT,
     });
 
     const chat = model.startChat({ history });
+    
+    const streaming = req.headers.get('accept') === 'text/event-stream';
+    
+    if (streaming) {
+      const stream = await chat.sendMessageStream(currentMessage);
+      
+      const encoder = new TextEncoder();
+      const streamable = new ReadableStream({
+        async start(controller) {
+          try {
+            for await (const chunk of stream.stream) {
+              const text = chunk.text();
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+            }
+            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          } catch (_error) {
+            void _error;
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Stream interrupted' })}\n\n`));
+          }
+        },
+      });
+      
+      return new Response(streamable, {
+        headers: {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+        },
+      });
+    }
+    
     const result = await chat.sendMessage(currentMessage);
     const responseText = result.response.text();
 
     return new Response(
       JSON.stringify({ text: responseText }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      { status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }
     );
   } catch (error: unknown) {
     console.error('Chat API Error:', error);
@@ -115,13 +146,13 @@ export async function POST(req: Request) {
         JSON.stringify({
           error: 'CivicAI is taking a short break — API quota reached. Please try again in a minute!',
         }),
-        { status: 429, headers: { 'Content-Type': 'application/json' } }
+        { status: 429, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'private, max-age=60' } }
       );
     }
 
     return new Response(
       JSON.stringify({ error: message || 'An unexpected error occurred.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }
     );
   }
 }

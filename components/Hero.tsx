@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface Props {
   currentStage: number;
@@ -57,10 +58,13 @@ export default function Hero({ currentStage, totalStages, onStageClick }: Props)
       <div className="hero-inner container">
         {/* National Emblem */}
         <div className="emblem-wrap" aria-hidden="true">
-          <img
+          <Image
             src="/images/emblem-of-india.svg"
             alt="National Emblem of India"
             className="emblem-svg"
+            width={80}
+            height={80}
+            priority
           />
         </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Hero from '@/components/Hero';
 import TabNav from '@/components/TabNav';
 import AIAssistant from '@/components/AIAssistant';
@@ -79,11 +80,13 @@ export default function Home() {
           <div className="footer-inner container">
             <div className="footer-brand">
               <span className="footer-emblem" aria-hidden="true">
-                <img
+                <Image
                   src="/images/emblem-of-india.svg"
                   alt="National Emblem of India"
-                  style={{ filter: 'brightness(0) invert(1)', width: '50px', height: '50px' }}
+                  width={50}
+                  height={50}
                   className="emblem-svg"
+                  style={{ filter: 'brightness(0) invert(1)' }}
                 />
               </span>
               <span className="footer-title">How India Votes</span>

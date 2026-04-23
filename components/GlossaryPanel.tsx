@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { GLOSSARY_TERMS, GlossaryTerm } from '@/lib/data';
+import { GLOSSARY_TERMS } from '@/lib/data';
 
 type Category = 'All' | 'ECI' | 'Technology' | 'Law' | 'Process';
 
@@ -19,11 +19,6 @@ export default function GlossaryPanel() {
       return matchCat && matchTerm;
     });
   }, [search, cat]);
-
-  function catCls(c: Category): string {
-    const map: Record<string, string> = { ECI: 'cat-ECI', Technology: 'cat-Technology', Law: 'cat-Law', Process: 'cat-Process' };
-    return map[c] || '';
-  }
 
   return (
     <section

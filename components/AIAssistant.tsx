@@ -59,21 +59,60 @@ export default function AIAssistant() {
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json, text/event-stream',
+        },
         body: JSON.stringify({ messages: newMessages }),
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get('content-type') || '';
+      let botContent: string;
       
-      const botContent = res.ok && data.text ? data.text : 
-        (data.error || "Sorry, I am facing an issue connecting to my democratic knowledge base.");
+      if (contentType.includes('text/event-stream')) {
+        const reader = res.body?.getReader();
+        const decoder = new TextDecoder();
+        botContent = '';
+        
+        while (reader) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              if (data === '[DONE]') break;
+              try {
+                const parsed = JSON.parse(data);
+                if (parsed.text) {
+                  botContent += parsed.text;
+                  setMessages((prev) => {
+                    const msgs = [...prev];
+                    msgs[msgs.length - 1] = { role: 'bot', content: botContent };
+                    return msgs;
+                  });
+                }
+              } catch { /* ignore parse errors */ }
+            }
+          }
+        }
+      } else {
+        const data = await res.json();
+        botContent = res.ok && data.text ? data.text : 
+          (data.error || "Sorry, I am facing an issue connecting to my democratic knowledge base.");
+      }
 
       const botReply: Message = {
         role: 'bot',
         content: botContent,
       };
 
-      setMessages((prev) => [...prev.slice(0, -1), botReply]);
+      if (!contentType.includes('text/event-stream')) {
+        setMessages((prev) => [...prev.slice(0, -1), botReply]);
+      }
     } catch (err) {
       console.error(err);
       setMessages((prev) => [
